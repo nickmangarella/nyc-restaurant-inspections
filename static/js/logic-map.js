@@ -33,8 +33,8 @@ legend.onAdd = function(map) {
   // Loop through the depth intervals
   for (var i = 0; i < grades.length; i++) {
     div.innerHTML +=
-        '<i style="background:' + circleColor(grades[i] + 1) + '"></i> ' +
-        grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+      '<i style="background:' + circleColor(grades[i] + 1) + '"></i> ' +
+      grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
 }
   return div;
 };
@@ -42,11 +42,16 @@ legend.addTo(myMap);
 
 
 d3.json("", function(data) {
-    
+  
+  // For loop to cycle through each object
   for (var i = 0; i < data.length; i++) {
-      
+    
+    // Render the restaurants as circles and call circleColor() for fillColor
     L.circle([data.Latitude, data.Longitude], {
-
-    })
+      color: "white",
+      fillColor: circleColor(data.SCORE),
+      fillOpacity: 0.8,
+      radius: 1000
+    }).bindPopup().addTo(myMap);
   }
 });
