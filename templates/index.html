@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewpoint" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" >
+	<title>NYC Restaurants</title>
+<!-- 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+	<link rel="stylesheet" type="text/css" href="../static/css/style.css" class="center">
+	<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+	<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+
+</head>
+
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 jumbotron text-center">
+<img src="https://upload.wikimedia.org/wikipedia/en/9/9d/Human_Flesh_-_Bob%27s_Burgers_promo.png" class="center">
+		<h1>Health Inspection Scores of NYC dining locations</h1>
+	<p>Use the charts below to make your decision</p>
+	 </div>
+	</div>
+	<div class="row">
+		<div class = "col-md-2">
+			<div class="well">
+				<h5>Restaurant ID</h5>
+				<select id="selDataset" onchange="optionChanged(this.value)"></select>
+		</div>
+
+		<div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">Restaurant Info</h3>
+          </div>
+          <div id="sample-metadata" class="panel-body"></div>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <div id="bar"></div>
+      </div>
+      <div class="col-md-5">
+        <div id="gauge"></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div id="bubble"></div>
+      </div>
+    </div>
+  </div>
+	
+
+
+	
+
+
+
+
+</body>
+</html>
