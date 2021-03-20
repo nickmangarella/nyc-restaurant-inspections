@@ -48,15 +48,15 @@ d3.json("", function(data) {
   for (var i = 0; i < restaurants.length; i++) {
     
     // Render the restaurants as circles and call circleColor() for fillColor
-    L.circle([restaurants.Latitude, restaurants.Longitude], {
+    L.circle([restaurants.latitude, restaurants.longitude], {
       color: "white",
-      fillColor: circleColor(restaurants.SCORE),
+      fillColor: circleColor(restaurants.score),
       fillOpacity: 1,
       radius: 500
     })
 
     // Render markers 
-    L.markerClusterGroup().addLayer(L.marker([restaurants[i].Latitude, restaurants[i].Longitude])
-    .bindPopup(restaurants[i].))
+    L.markerClusterGroup().addLayer(L.marker([restaurants[i].latitude, restaurants[i].longitude])
+    .bindPopup("<h3>" + restaurants[i].dba + "</h3> <hr> <h4>" + restaurants[i].violation_code + "</h4> <h4>" + restaurants[i].violation_description + "</h4>"))
   }
 });
