@@ -25,7 +25,8 @@ function markerColor(score) {
 }
 
 // Connect to database route
-d3.json("", function(data) {
+d3.json("/leaflet", function(data) {
+  // var manhattan = data.id.filter(x => x.boro === 'Manhattan')
   var restaurants = data.id
 
   // For loop to cycle through each object
