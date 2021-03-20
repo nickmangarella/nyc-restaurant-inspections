@@ -28,7 +28,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-4">
         <div class="well">
           <h5>Restaurant Name:</h5>
           <select id="selDataset" onchange="optionChanged(this.value)"></select>
@@ -41,9 +41,12 @@
         </div>
       </div>
       <!-- The div for plot -->
-      <div class="col-md-6">
+      <div class="col-md-4">
         <div id="gauge"></div>
       </div>
+        <div class="col-md-4">
+          <div id="bar"></div>
+        </div>
     </div>
   </div>
 
@@ -54,14 +57,16 @@
     integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
     crossorigin=""></script>
   <!-- API key -->
-  <script type="text/javascript" src="static/js/config.js"></script>
+  <!-- <script type="text/javascript" src="static/js/config.js"></script> -->
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
   <!-- Our JS -->
   <script src="static/data/NYC_Restaurant_Inspection_Results_Clean2020.json"></script>
+  <script src="static/js/plot.js"></script>
   <script src="static/js/logic.js"></script>
+  
 
 </body>
 
