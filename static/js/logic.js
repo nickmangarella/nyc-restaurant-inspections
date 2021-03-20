@@ -57,19 +57,13 @@ function buildGauge(SCORE) {
         textposition: "inside",
         marker: {
           colors: [
-            "rgba(0, 105, 11, .5)",
-            //"rgba(10, 120, 22, .5)",
-            //"rgba(14, 127, 0, .5)",
-            //"rgba(110, 154, 22, .5)",
-            //"rgba(170, 202, 42, .5)",
-            "rgba(202, 209, 95, .5)",
-            //"rgba(210, 206, 145, .5)",
-            //"rgba(232, 226, 202, .5)",
-            //"rgba(240, 230, 215, .5)",
+            "rgba(255, 140, 0, 1)",
+            "rgba(46, 139, 87, 0.9)",
+            "rgba(65, 105, 225, 1)",
             "rgba(255, 255, 255, 0)"
           ]
         },
-        labels: ["28+", "14-28", "0-14", ""],
+        labels: ["28+", "14-27", "0-13", ""],
         hoverinfo: "label",
         hole: 0.5,
         type: "pie",
@@ -141,3 +135,7 @@ function optionChanged(newdba) {
 
 // Initialise the dashboard
 init();
+
+
+
+
