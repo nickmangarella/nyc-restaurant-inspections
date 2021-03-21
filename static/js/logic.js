@@ -1,19 +1,3 @@
-// Creating map object
-var myMap = L.map("map", {
-  center: [40.7128, -74.0060],
-  zoom: 9
-});
-
-// Adding tile layer
-L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
-  attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
-  tileSize: 512,
-  maxZoom: 18,
-  zoomOffset: -1,
-  id: "mapbox/streets-v11",
-  accessToken: API_KEY
-}).addTo(myMap);
-
 function buildPanel(dba) {
     // use D3 to fetch json file
     d3.json("static/data/NYC_Restaurant_Inspection_Results_Clean2020.json").then((data) => {
@@ -36,17 +20,40 @@ function buildPanel(dba) {
     });
 }
 
+var myMap = L.map("map", {
+  center: [40.7128, -74.0060],
+  zoom: 10
+});
+
+L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+  attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
+  tileSize: 512,
+  maxZoom: 18,
+  zoomOffset: -1,
+  id: "mapbox/streets-v11",
+  accessToken: API_KEY
+}).addTo(myMap);
+
+var markers = [];
+var markersLayer = new L.layerGroup();
+markersLayer.addTo(myMap);
+
 function buildMarker(dba) {
 
+  markersLayer.clearLayers();
+
   d3.json("static/data/NYC_Restaurant_Inspection_Results_Clean2020.json").then((data) => {
-    
+    var marker;
     var infoArray = data.filter(restaurant => restaurant.DBA == dba);
     var infoObject = infoArray[0];
     var lat = infoObject.Latitude;
     var lon = infoObject.Longitude;
-    
-    L.marker([lat, lon]).addTo(myMap);
+      
+    marker = L.marker([lat, lon]);
+    markersLayer.addLayer(marker);
+    console.log(markers);
   });
+  
 }
 
 function buildGauge(SCORE) {
@@ -160,13 +167,9 @@ function init() {
 
 // Update New info and Plots by optionChanged function
 function optionChanged(newdba) {
-    buildMarker(newdba);
     buildPanel(newdba);
+    buildMarker(newdba);
 }
 
 // Initialise the dashboard
 init();
-
-
-
-
