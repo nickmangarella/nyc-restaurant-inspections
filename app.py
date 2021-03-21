@@ -58,8 +58,8 @@ def leaflet():
     session = Session(engine)
 
     # Query lats and longs
-    nycLat = session.query(nyc.Latitude, nyc.Longitude).\
-    distinct().filter(nyc.Latitude != 0.0).all()
+    nycLat = session.query(nyc.latitude, nyc.longitude).\
+    distinct().filter(nyc.latitude != 0.0).all()
 
     session.close()
     
@@ -98,8 +98,8 @@ def small_map():
     session = Session(engine)
 
     # Query data for most active station
-    nycsmall_map = session.query(nyc.DBA, nyc.Latitude, nyc.Longitude).\
-    distinct().filter(nyc.Latitude != 0.0).all()
+    nycsmall_map = session.query(nyc.dba, nyc.latitude, nyc.longitude).\
+    distinct().filter(nyc.latitude != 0.0).all()
 
     session.close()
 
@@ -122,8 +122,8 @@ def gauge():
     session = Session(engine)
 
     # Query data for most active station
-    nycgauge = session.query(nyc.DBA, nyc.SCORE).\
-    distinct().filter(nyc.Latitude != 0.0).all()
+    nycgauge = session.query(nyc.dba, nyc.score).\
+    distinct().filter(nyc.latitude != 0.0).all()
 
     session.close()
 
