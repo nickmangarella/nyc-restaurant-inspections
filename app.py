@@ -37,16 +37,16 @@ def welcome():
     """List all available api routes."""
     return (
         f"Available Routes:<br/>"
-        f"/api/v1.0/latlong<br/>"
-        f"/api/v1.0/stations<br/>"
-        f"/api/v1.0/tobs<br/>"
-        f"/api/v1.0/start<br/>"         
-        f"/api/v1.0/start/end"
+        f"/api/v1.0/leaflet<br/>"
+        f"/api/v1.0/info<br/>"
+        f"/api/v1.0/small_map<br/>"
+        f"/api/v1.0/gauge<br/>"         
+        f"/api/v1.0/critical_flag"
     )
 
 
-@app.route("/api/v1.0/latlong")
-def latlong():
+@app.route("/leaflet")
+def leaflet():
     # Create our session (link) from Python to the DB
     session = Session(engine)
 
@@ -69,12 +69,12 @@ def latlong():
         
     
     
-# @app.route("/api/v1.0/stations")
-# def stations():
+# @app.route("/api/v1.0/info")
+# def info():
 #     # Create our session (link) from Python to the DB
 #     session = Session(engine)
 
-#     # Query all stations
+#     # Query name
 #     results = session.query(sta.station).all()
 
 #     session.close()
@@ -85,22 +85,28 @@ def latlong():
 #     return jsonify(stations)
    
    
-# @app.route("/api/v1.0/tobs")
-# def tobs():
-#     # Create our session (link) from Python to the DB
-#     session = Session(engine)
+@app.route("/api/v1.0/small_map")
+def small_map():
+    # Create our session (link) from Python to the DB
+    session = Session(engine)
 
-#     # Query data for most active station
-#     tempfreq = session.query(meas.station, meas.date, meas.tobs).\
-#     filter(meas.station == 'USC00519281').\
-#     filter(meas.date > '2016-08-23').order_by(meas.date).all()
+    # Query data for most active station
+    nycsmall_map = session.query(nyc.DBA, nyc.Latitude, nyc.Longitude).\
+    distinct().filter(nyc.Latitude != 0.0).all()
 
-#     session.close()
+    session.close()
 
-#     # Convert list of tuples into normal list
-#     temps = list(np.ravel(tempfreq))
+    # Convert list of tuples into normal list
+    small_map = []
+    
+    for dba, lat, long in nycsmall_map:
+        nycsmall_map_dict = {}
+        nycsmall_map_dict["dba"] = dba
+        nycsmall_map_dict["lat"] = lat
+        nycsmall_map_dict["long"] = long
+        small_map.append(nycsmall_map_dict)
 
-#     return jsonify(temps)
+    return jsonify(small_map)
 
 
     
