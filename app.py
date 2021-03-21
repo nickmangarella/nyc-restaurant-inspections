@@ -110,7 +110,7 @@ def small_map():
     session = Session(engine)
 
     # Query data for most active station
-    nycsmall_map = session.query(nyc.camis, nyc.dba, nyc.latitude, nyc.longitude).\
+    nycsmall_map = session.query(nyc.camis, nyc.dba, nyc.violation_description, nyc.latitude, nyc.longitude).\
     distinct().filter(nyc.latitude != 0.0).all()
 
     session.close()
@@ -118,12 +118,13 @@ def small_map():
     # Convert list of tuples into normal list
     small_map = []
     
-    for camis, dba, lat, long in nycsmall_map:
+    for camis, dba, vio, lat, long in nycsmall_map:
         nycsmall_map_dict = {}
         nycsmall_map_dict["ID"] = camis
-        nycsmall_map_dict["Name"] = dba    
-        nycsmall_map_dict["lat"] = lat
-        nycsmall_map_dict["long"] = long
+        nycsmall_map_dict["Name"] = dba
+        nycsmall_map_dict["Violation"] = vio
+        nycsmall_map_dict["Lat"] = lat
+        nycsmall_map_dict["Long"] = long
         small_map.append(nycsmall_map_dict)
 
     return jsonify(small_map)
