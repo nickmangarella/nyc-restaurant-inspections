@@ -38,6 +38,16 @@ var markers = [];
 var markersLayer = new L.layerGroup();
 markersLayer.addTo(myMap);
 
+// Function to set the marker colors to a range of scores
+function markerColor(score) {
+  return score > 28 ? "#FF8C00" :
+         score > 27 ? "#FF8C00" :
+         score > 14 ? "#2E8B57" :
+         score > 13 ? "#2E8B57" :
+         score > 0  ? "#4169E1" :
+                      "#4169E1" ;
+};
+
 function buildMarker(dba) {
 
   markersLayer.clearLayers();
@@ -49,7 +59,10 @@ function buildMarker(dba) {
     var lat = infoObject.Latitude;
     var lon = infoObject.Longitude;
       
-    marker = L.marker([lat, lon]);
+    marker = L.marker([lat, lon], {
+      color: "white",
+      fillColor: markerColor(infoObject.score),
+      fillOpacity: 1}).bindPopup("<h3>" + infoObject.dba + "</h3> <hr> <h4>" + infoObject.violation_code + "</h4> <h4>" + infoObject.violation_description + "</h4>");
     markersLayer.addLayer(marker);
     console.log(markers);
   });

@@ -1,5 +1,5 @@
 // Create map
-var map = L.map("map", {
+var myMap = L.map("map", {
   center: [40.7128, -74.0059],
   zoom: 10
 });
@@ -12,7 +12,7 @@ L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
   zoomOffset: -1,
   id: "mapbox/streets-v11",
   accessToken: API_KEY
-}).addTo(map)
+}).addTo(myMap)
 
 // Function to set the marker colors to a range of scores
 function markerColor(score) {
@@ -25,18 +25,19 @@ function markerColor(score) {
 }
 
 // Connect to database route
-d3.json("/leaflet", function(data) {
+d3.json("static/data/NYC_Restaurant_Inspection_Results_Clean2020.json", function(data) {
   // var manhattan = data.id.filter(x => x.boro === 'Manhattan')
-  var restaurants = data.id
+  var restaurants = data.id;
+  console.log(restaurants);
 
   // For loop to cycle through each object
   for (var i = 0; i < restaurants.length; i++) {
     
     // Render the restaurants as markers and call markerColor() for fillColor
-    L.markerClusterGroup().addLayer(L.marker([restaurants[i].latitude, restaurants[i].longitude], {
+    L.marker([restaurants[i].latitude, restaurants[i].longitude], {
       color: "white",
       fillColor: markerColor(restaurants.score),
       fillOpacity: 1
-    }).bindPopup("<h3>" + restaurants[i].dba + "</h3> <hr> <h4>" + restaurants[i].violation_code + "</h4> <h4>" + restaurants[i].violation_description + "</h4>")).addTo(map);
+    }).bindPopup("<h3>" + restaurants[i].dba + "</h3> <hr> <h4>" + restaurants[i].violation_code + "</h4> <h4>" + restaurants[i].violation_description + "</h4>").addTo(myMap);
   }
 });
