@@ -1,6 +1,6 @@
 // Create map
 var myMap = L.map("boroMap", {
-  center: [40.7128, -74.0059],
+  center: [40.7128, -74.0060],
   zoom: 10
 });
 
