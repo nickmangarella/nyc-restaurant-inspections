@@ -92,7 +92,7 @@ def info():
     
     for dba, cuisine, boro, address, phone, score in nycInfo:
         nycInfo_dict = {}
-        nycInfo_dict["DBA"] = dba
+        nycInfo_dict["Name"] = dba
         nycInfo_dict["Cuisine"] = cuisine
         nycInfo_dict["Boro"] = boro
         nycInfo_dict["Address"] = address
