@@ -34,7 +34,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    """List all available api routes."""    
+    """Render HTML"""    
 
     return render_template("index.html")
     
@@ -58,17 +58,21 @@ def leaflet():
     session = Session(engine)
 
     # Query lats and longs
-    nycLat = session.query(nyc.latitude, nyc.longitude).\
+    nycLat = session.query(nyc.dba, nyc.bobo, nyc.score, nyc.address, nyc.latitude, nyc.longitude).\
     distinct().filter(nyc.latitude != 0.0).all()
 
     session.close()
     
     all_latslongs = []
     
-    for lat, long in nycLat:
+    for dba, boro, score, add, lat, long in nycLat:
         nycLat_dict = {}
-        nycLat_dict["lat"] = lat
-        nycLat_dict["long"] = long
+        nycLat_dict["Name"] = dba
+        nycLat_dict["Boro"] = boro
+        nycLat_dict["Score"] = score
+        nycLat_dict["Address"] = add
+        nycLat_dict["Lat"] = lat
+        nycLat_dict["Long"] = long
         all_latslongs.append(nycLat_dict)   
     
     return jsonify(all_latslongs)
