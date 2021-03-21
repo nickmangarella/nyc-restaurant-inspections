@@ -109,7 +109,50 @@ def small_map():
     return jsonify(small_map)
 
 
+@app.route("/api/v1.0/gauge")
+def gauge():
+    # Create our session (link) from Python to the DB
+    session = Session(engine)
+
+    # Query data for most active station
+    nycgauge = session.query(nyc.DBA, nyc.SCORE).\
+    distinct().filter(nyc.Latitude != 0.0).all()
+
+    session.close()
+
+    # Convert list of tuples into normal list     
+    gauge = []
     
+    for dba, score in nycgauge:
+        gauge_dict = {}
+        gauge_dict["dba"] = dba
+        gauge_dict["score"] = score
+        gauge.append(gauge_dict)
+
+    return jsonify(gauge)
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # @app.route("/api/v1.0/<start>")
 # def start_date(start):
     
