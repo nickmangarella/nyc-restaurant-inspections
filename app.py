@@ -76,20 +76,30 @@ def leaflet():
         
     
     
-# @app.route("/api/v1.0/info")
-# def info():
-#     # Create our session (link) from Python to the DB
-#     session = Session(engine)
+@app.route("/api/v1.0/info")
+def info():
+    # Create our session (link) from Python to the DB
+    session = Session(engine)
 
-#     # Query name
-#     results = session.query(sta.station).all()
+    # Query name
+    nycInfo = session.query(nyc.dba, nyc.bobo, nyc.phone, nyc.cuisne_description, nyc.address).\
+    distinct().order_by(nyc.dba).all()
 
-#     session.close()
+    session.close()
 
-#     # Convert list of tuples into normal list
-#     stations = list(np.ravel(results))
+    # Convert list of tuples into normal list
+    info = []
+    
+    for dba, boro, phone, cuisine, address in nycInfo:
+        nycInfo_dict = {}
+        nycInfo_dict["dba"] = dba
+        nycInfo_dict["boro"] = boro
+        nycInfo_dict["phone"] = phone
+        nycInfo_dict["cuisine"] = cuisine
+        nycInfo_dict["address"] = address
+        info.append(nycInfo_dict)
 
-#     return jsonify(stations)
+    return jsonify(info)
    
    
 @app.route("/api/v1.0/small_map")
