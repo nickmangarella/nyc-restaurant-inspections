@@ -25,19 +25,20 @@ function markerColor(score) {
 }
 
 // Connect to database route
-d3.json("static/data/NYC_Restaurant_Inspection_Results_Clean2020.json", function(data) {
-  // var manhattan = data.id.filter(x => x.boro === 'Manhattan')
-  var restaurants = data.id;
+d3.json("http://127.0.0.1:5000/leaflet", function(data) {
+  // var manhattan = data.filter(x => x.boro === 'Manhattan')
+  console.log(data);
+  var restaurants = data;
   console.log(restaurants);
 
   // For loop to cycle through each object
   for (var i = 0; i < restaurants.length; i++) {
     
     // Render the restaurants as markers and call markerColor() for fillColor
-    L.marker([restaurants[i].latitude, restaurants[i].longitude], {
+    L.marker([restaurants[i].lat, restaurants[i].long], {
       color: "white",
       fillColor: markerColor(restaurants.score),
       fillOpacity: 1
-    }).bindPopup("<h3>" + restaurants[i].dba + "</h3> <hr> <h4>" + restaurants[i].violation_code + "</h4> <h4>" + restaurants[i].violation_description + "</h4>").addTo(myMap);
+    }).bindPopup("<h4>" + restaurants[i].dba + "</h4> <hr> <p>" + restaurants[i].address + "</p>").addTo(myMap);
   }
 });
