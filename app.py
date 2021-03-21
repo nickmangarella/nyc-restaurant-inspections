@@ -149,6 +149,30 @@ def gauge():
     return jsonify(gauge)
 
 
+@app.route("/api/v1.0/critical_flag")
+def critical_flag():
+    # Create our session (link) from Python to the DB
+    session = Session(engine)
+
+    # Query data for most active station
+    nycflag = session.query(nyc.dba, nyc.bobo, nyc.critical_flag).\
+    distinct().filter(nyc.latitude != 0.0).order_by(nyc.dba).all()
+
+    session.close()
+
+    # Convert list of tuples into normal list     
+    flag = []
+    
+    for dba, boro, cflag in nycflag:
+        flag_dict = {}
+        flag_dict["dba"] = dba
+        flag_dict["boro"] = boro
+        flag_dict["flag"] = cflag    
+        flag.append(flag_dict)
+
+    return jsonify(flag)
+
+
     
 
 
