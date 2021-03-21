@@ -158,7 +158,7 @@ def critical_flag():
     session = Session(engine)
 
     # Query data for most active station
-    nycflag = session.query(nyc.dba, nyc.bobo, nyc.critical_flag).\
+    nycflag = session.query(nyc.dba, nyc.bobo, nyc.critical_flag, nyc.camis).\
     distinct().filter(nyc.latitude != 0.0).order_by(nyc.dba).all()
 
     session.close()
@@ -166,11 +166,12 @@ def critical_flag():
     # Convert list of tuples into normal list     
     flag = []
     
-    for dba, boro, cflag in nycflag:
+    for dba, boro, cflag, camis in nycflag:
         flag_dict = {}
-        flag_dict["dba"] = dba
+        flag_dict["Name"] = dba
         flag_dict["boro"] = boro
-        flag_dict["flag"] = cflag    
+        flag_dict["flag"] = cflag
+        flag_dict["ID"] = camis    
         flag.append(flag_dict)
 
     return jsonify(flag)
