@@ -82,7 +82,7 @@ def info():
     session = Session(engine)
 
     # Query name
-    nycInfo = session.query(nyc.dba, nyc.bobo, nyc.phone, nyc.cuisne_description, nyc.address).\
+    nycInfo = session.query(nyc.dba, nyc.cuisne_description, nyc.bobo, nyc.address, nyc.phone, nyc.score).\
     distinct().order_by(nyc.dba).all()
 
     session.close()
@@ -90,14 +90,15 @@ def info():
     # Convert list of tuples into normal list
     info = []
     
-    for dba, boro, phone, cuisine, address in nycInfo:
+    for dba, cuisine, boro, address, phone, score in nycInfo:
         nycInfo_dict = {}
-        nycInfo_dict["dba"] = dba
-        nycInfo_dict["boro"] = boro
-        nycInfo_dict["phone"] = phone
-        nycInfo_dict["cuisine"] = cuisine
-        nycInfo_dict["address"] = address
-        info.append(nycInfo_dict)
+        nycInfo_dict["DBA"] = dba
+        nycInfo_dict["Cuisine"] = cuisine
+        nycInfo_dict["Boro"] = boro
+        nycInfo_dict["Address"] = address
+        nycInfo_dict["Phone"] = phone
+        nycInfo_dict["Score"] = score    
+        info.append(nycInfo_dict) 
 
     return jsonify(info)
    
