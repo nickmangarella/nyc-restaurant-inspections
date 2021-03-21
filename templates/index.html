@@ -1,111 +1,89 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="utf-8">
-	<meta name="viewpoint" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge" >
-	<title>NYC Restaurants</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="../static/css/style.css" class="center">
-	
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>NYC Restaurants</title>
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+    crossorigin="" />
+  <!-- Bootstrap stylesheet -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <!-- Our CSS -->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }} ">
+
 </head>
 
 <body>
-	 <!-- Start of navbar -->
-    <nav class="navbar navbar-default">
-      <div class="container-fluid navbar-custom">
-
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="row">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-              <span class="sr-only">Toggle Navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-           <!--  <div class="col-xs-9 phone-nav">
-              <a class="navbar-brand" href="#" id="logo">New York City</a>
-            </div>
-          </div> -->
-
-          <!-- Collect the nav links, forms, and other content for toggling -->
-          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right navbar-right-custom">
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Restaurants <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                 <li><a href="visualizations/temp.html">Max Temperature</a></li>
-                  <li><a href="visualizations/humidity.html">Humidity</a></li>
-                  <li><a href="visualizations/cloudiness.html">Cloudiness</a></li>
-                  <li><a href="visualizations/wind.html">Wind Speed</a></li>
-                </ul>
-              </li>
-              <li><a href="comparison.html">Comparison</a></li>
-              <li><a href="data.html">Data</a></li>
-            </ul>
-          </div><!-- /.navbar-collapse -->
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 jumbotron text-center">
+        <img src="https://upload.wikimedia.org/wikipedia/en/9/9d/Human_Flesh_-_Bob%27s_Burgers_promo.png" class="center">
+        <h1>Health Inspection of NYC dining locations</h1>
+        <p>Use the charts below to make your decision</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <div class="well">
+          <h5>Restaurant Name:</h5>
+          <select id="selDataset" onchange="optionChanged(this.value)"></select>
         </div>
-      </div><!-- /.container-fluid -->
-    </nav>
-    <!-- End of navbar -->
-		
-	<div class="row">
-  <div class="side">...</div>
-  <div class="main">...</div>
-</div>
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12 jumbotron text-center">
-<img src="https://upload.wikimedia.org/wikipedia/en/9/9d/Human_Flesh_-_Bob%27s_Burgers_promo.png" class="center">
-		<h1>Health Inspection Scores of NYC dining locations</h1>
-	<p>Use the charts below to make your decision</p>
-	 </div>
-	</div>
-	
-
-	<div class="row">
-		<div class = "col-md-2">
-			<div class="well">
-				<h5>Restaurant ID</h5>
-				<select id="selDataset" onchange="optionChanged(this.value)"></select>
-		</div>
-
-		<div class="panel panel-primary">
+        <div class="panel panel-primary">
           <div class="panel-heading">
             <h3 class="panel-title">Restaurant Info</h3>
           </div>
           <div id="sample-metadata" class="panel-body"></div>
         </div>
       </div>
-      <div class="col-md-5">
-        <div id="bar"></div>
+      <div class="col-md-6">
+        <div id="map_s"></div>
       </div>
-      <div class="col-md-5">
+      <div class="col-md-3">
         <div id="gauge"></div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        <div id="bubble"></div>
-      </div>
+
+  </div>
+
+  <div class="container">
+    <div class="col-md-12">
+      <div id="map"></div>
     </div>
   </div>
-  <div class="footer">
-  <h2>Team Restaurant Inspections</h2>
-</div>
-	
 
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
-<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div id="bar"></div>
+      </div>
+    </div>
+    
+  </div>
 
 
 
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+    crossorigin=""></script>
+  <!-- API key -->
+  <script type="text/javascript" src="{{ url_for('static', filename='js/config.js') }}"></script>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+  <!-- Our JS -->
+  <!-- <script src="static/data/NYC_Restaurant_Inspection_Results_Clean2020.json"></script>
+  <script src="static/data/nyc.geojson"></script>
+  <script src="static/js/plot.js"></script>
+  <script src="static/js/logic.js"></script> -->
+  <script type=text/javascript src="{{ url_for('static', filename='js/logic2.js') }}"></script>
+  
 
 </body>
+
 </html>
-
-
