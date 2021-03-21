@@ -46,12 +46,13 @@ function buildMarker(id) {
     var marker;
     var infoArray = data.filter(restaurant => restaurant.ID == id);
     var infoObject = infoArray[0];
-    var lat = infoObject.lat;
-    var long = infoObject.long;
+    var lat = infoObject.Lat;
+    var long = infoObject.Long;
+    var violation = infoObject.Violation;
       
-    marker = L.marker([lat, long]);
+    marker = L.marker([lat, long]).bindPopup("<p>" + violation + "</p>");
     markersLayer.addLayer(marker);
-    console.log(markers);
+    
   });
   
 }
