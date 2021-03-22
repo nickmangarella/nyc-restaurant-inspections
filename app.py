@@ -38,18 +38,7 @@ def home():
 
     return render_template("index.html")
     
-    
-    
-    
-    
-    # return (
-    #     f"Available Routes:<br/>"
-    #     f"/api/v1.0/leaflet<br/>"
-    #     f"/api/v1.0/info<br/>"
-    #     f"/api/v1.0/small_map<br/>"
-    #     f"/api/v1.0/gauge<br/>"         
-    #     f"/api/v1.0/critical_flag"
-    # )
+
 
 
 @app.route("/leaflet")
@@ -182,65 +171,6 @@ def critical_flag():
     return jsonify(flag)
 
 
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# @app.route("/api/v1.0/<start>")
-# def start_date(start):
-    
-#     # Create our session (link) from Python to the DB
-#     session = Session(engine)
-    
-#     # Query funcs to grab data that will tie back to input from user
-#     sel = [func.min(meas.tobs), func.max(meas.tobs), func.avg(meas.tobs)]
-
-#     funcs = session.query(*sel).filter(meas.date >= start).all()
-
-#     session.close()
-        
-#     # Convert list of tuples into normal list
-#     output = list(np.ravel(funcs))
-#     return jsonify(output)
-
-
-# @app.route("/api/v1.0/<start>/<end>")
-# def start_end(start, end):
-    
-#     # Create our session (link) from Python to the DB
-#     session = Session(engine)
-    
-#     # Query funcs to grab data that will tie back to input from user
-#     sel = [func.min(meas.tobs), func.max(meas.tobs), func.avg(meas.tobs)]
-
-#     funcs = session.query(*sel).\
-#     filter(meas.date >= start).\
-#     filter(meas.date <= end).all()
-
-#     session.close()
-        
-#     # Convert list of tuples into normal list
-#     output = list(np.ravel(funcs))
-#     return jsonify(output)
-   
-    
 
 
 if __name__ == '__main__':
