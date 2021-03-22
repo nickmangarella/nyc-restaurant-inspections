@@ -25,20 +25,27 @@ function markerColor(score) {
 }
 
 // Connect to database route
-d3.json("http://127.0.0.1:5000/leaflet", function(data) {
-  // var manhattan = data.filter(x => x.boro === 'Manhattan')
+d3.json("http://127.0.0.1:5000/leaflet").then((data) => {
   console.log(data);
-  var restaurants = data;
-  console.log(restaurants);
 
   // For loop to cycle through each object
-  for (var i = 0; i < restaurants.length; i++) {
+  for (var i = 0; i < data.length; i++) {
+
+    var manhattan = data.filter(x => x.boro === 'Manhattan');
+    var staten_island = data.filter(x => x.boro === 'Staten Island');
+    var queens = data.filter(x => x.boro === 'Queens');
+    var bronx = data.filter(x => x.boro === 'Bronx');
+    var brooklyn = data.filter(x => x.boro === 'Brooklyn');
+    
+    console.log(manhattan);
+    console.log(staten_island);
+    console.log(queens);
+    console.log(bronx);
+    console.log(brooklyn);
     
     // Render the restaurants as markers and call markerColor() for fillColor
-    L.marker([restaurants[i].lat, restaurants[i].long], {
-      color: "white",
-      fillColor: markerColor(restaurants.score),
-      fillOpacity: 1
-    }).bindPopup("<h4>" + restaurants[i].dba + "</h4> <hr> <p>" + restaurants[i].address + "</p>").addTo(myMap);
+    L.marker([data[i].lat, data[i].long], {
+      iconColor: markerColor(data[i].score)
+    }).bindPopup("<h4>" + data[i].dba + "</h4> <hr> <p>" + data[i].add + "</p>").addTo(myMap);
   }
 });
