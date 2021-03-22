@@ -58,7 +58,7 @@ def leaflet():
     session = Session(engine)
 
     # Query lats and longs
-    nycLat = session.query(nyc.dba, nyc.bobo, nyc.score, nyc.address, nyc.latitude, nyc.longitude).\
+    nycLat = session.query(nyc.dba, nyc.boro, nyc.score, nyc.address, nyc.latitude, nyc.longitude).\
     distinct().filter(nyc.latitude != 0.0).all()
 
     session.close()
@@ -86,7 +86,7 @@ def info():
     session = Session(engine)
 
     # Query name
-    nycInfo = session.query(nyc.camis, nyc.dba, nyc.cuisne_description, nyc.bobo, nyc.address, nyc.phone, nyc.score).\
+    nycInfo = session.query(nyc.camis, nyc.dba, nyc.cuisine_description, nyc.boro, nyc.address, nyc.phone, nyc.score).\
     distinct().order_by(nyc.dba).all()
 
     session.close()
@@ -163,7 +163,7 @@ def critical_flag():
     session = Session(engine)
 
     # Query data for most active station
-    nycflag = session.query(nyc.dba, nyc.bobo, nyc.critical_flag, nyc.camis).\
+    nycflag = session.query(nyc.dba, nyc.boro, nyc.critical_flag, nyc.camis).\
     distinct().filter(nyc.latitude != 0.0).order_by(nyc.dba).all()
 
     session.close()
