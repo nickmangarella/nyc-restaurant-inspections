@@ -65,14 +65,14 @@ def leaflet():
     
     all_latslongs = []
     
-    for dba, boro, score, add, lat, long in nycLat:
+    for dba, boro, score, add, lat, lng in nycLat:
         nycLat_dict = {}
         nycLat_dict["Name"] = dba
         nycLat_dict["Boro"] = boro
         nycLat_dict["Score"] = score
         nycLat_dict["Address"] = add
         nycLat_dict["Lat"] = lat
-        nycLat_dict["Long"] = long
+        nycLat_dict["Long"] = lng
         all_latslongs.append(nycLat_dict)   
     
     return jsonify(all_latslongs)
