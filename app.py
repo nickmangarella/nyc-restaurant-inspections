@@ -38,18 +38,7 @@ def home():
 
     return render_template("index.html")
     
-    
-    
-    
-    
-    # return (
-    #     f"Available Routes:<br/>"
-    #     f"/api/v1.0/leaflet<br/>"
-    #     f"/api/v1.0/info<br/>"
-    #     f"/api/v1.0/small_map<br/>"
-    #     f"/api/v1.0/gauge<br/>"         
-    #     f"/api/v1.0/critical_flag"
-    # )
+
 
 
 @app.route("/leaflet")
@@ -58,21 +47,21 @@ def leaflet():
     session = Session(engine)
 
     # Query lats and longs
-    nycLat = session.query(nyc.dba, nyc.boro, nyc.score, nyc.address, nyc.latitude, nyc.longitude).\
+    nycLat = session.query(nyc.dba, nyc.violation_code, nyc.violation_description, nyc.address, nyc.latitude, nyc.longitude).\
     distinct().filter(nyc.latitude != 0.0).all()
 
     session.close()
     
     all_latslongs = []
     
-    for dba, boro, score, add, lat, lng in nycLat:
+    for dba, vioc, viod, add, lat, long in nycLat:
         nycLat_dict = {}
         nycLat_dict["Name"] = dba
-        nycLat_dict["Boro"] = boro
-        nycLat_dict["Score"] = score
+        nycLat_dict["Violation_Code"] = vioc
+        nycLat_dict["Violation_Desc"] = viod
         nycLat_dict["Address"] = add
         nycLat_dict["Lat"] = lat
-        nycLat_dict["Long"] = lng
+        nycLat_dict["Long"] = long
         all_latslongs.append(nycLat_dict)   
     
     return jsonify(all_latslongs)
@@ -182,65 +171,6 @@ def critical_flag():
     return jsonify(flag)
 
 
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# @app.route("/api/v1.0/<start>")
-# def start_date(start):
-    
-#     # Create our session (link) from Python to the DB
-#     session = Session(engine)
-    
-#     # Query funcs to grab data that will tie back to input from user
-#     sel = [func.min(meas.tobs), func.max(meas.tobs), func.avg(meas.tobs)]
-
-#     funcs = session.query(*sel).filter(meas.date >= start).all()
-
-#     session.close()
-        
-#     # Convert list of tuples into normal list
-#     output = list(np.ravel(funcs))
-#     return jsonify(output)
-
-
-# @app.route("/api/v1.0/<start>/<end>")
-# def start_end(start, end):
-    
-#     # Create our session (link) from Python to the DB
-#     session = Session(engine)
-    
-#     # Query funcs to grab data that will tie back to input from user
-#     sel = [func.min(meas.tobs), func.max(meas.tobs), func.avg(meas.tobs)]
-
-#     funcs = session.query(*sel).\
-#     filter(meas.date >= start).\
-#     filter(meas.date <= end).all()
-
-#     session.close()
-        
-#     # Convert list of tuples into normal list
-#     output = list(np.ravel(funcs))
-#     return jsonify(output)
-   
-    
 
 
 if __name__ == '__main__':
