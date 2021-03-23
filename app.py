@@ -57,8 +57,8 @@ def leaflet():
     for dba, vioc, viod, add, lat, long in nycLat:
         nycLat_dict = {}
         nycLat_dict["Name"] = dba
-        nycLat_dict["Violation Code"] = vioc
-        nycLat_dict["Violation Desc"] = viod
+        nycLat_dict["Violation_Code"] = vioc
+        nycLat_dict["Violation_Desc"] = viod
         nycLat_dict["Address"] = add
         nycLat_dict["Lat"] = lat
         nycLat_dict["Long"] = long
