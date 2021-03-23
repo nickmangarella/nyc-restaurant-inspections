@@ -74,4 +74,19 @@ var darkLayer = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}
 
 // Pass layers into layer control
 L.control.layers(null, overlayLayers).addTo(myMap);
+
+// Creat a legend 
+var legend = L.control({ position: "bottomright" });
+
+legend.onAdd = function(map) {
+  var div = L.DomUtil.create("div", "legend");
+  div.innerHTML += '<i style="background: #FF00FF"></i><span>Rats</span><br>';
+  div.innerHTML += '<i style="background: #7FFFD4"></i><span>Roaches</span><br>';
+  
+  return div;
+};
+
+// Add legend to the map
+legend.addTo(myMap);
+
 }).catch(err => console.error(err));
