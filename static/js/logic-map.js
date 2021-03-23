@@ -1,7 +1,8 @@
 // Create map
 var myMap = L.map("boroMap", {
   center: [40.7128, -74.0060],
-  zoom: 12
+  zoom: 12,
+  layers: [Rats, Roaches]
 });
 
 // Add the tile layer

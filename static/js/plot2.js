@@ -64,7 +64,7 @@ d3.json("http://127.0.0.1:5000/api/v1.0/critical_flag").then((data) => {
         }];
 
     var barLayout = {
-        title: "The Distribution of Critical Flags by Neighborhood",
+        title: "Critical Flag Distribution by Neighborhood",
         margin: { t: 30, l: 30 }
     };
 
