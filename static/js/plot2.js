@@ -52,7 +52,7 @@ d3.json("http://127.0.0.1:5000/api/v1.0/critical_flag").then((data) => {
             type: "bar",
             name: "Y",
             barmode: "stack",
-            marker: {color: "#448"}
+            marker: {color: "#FA8072"}
         },
         {
             x: ["Queens", "Manhattan", "Staten Island", "Bronx", "Brooklyn"],
@@ -60,7 +60,7 @@ d3.json("http://127.0.0.1:5000/api/v1.0/critical_flag").then((data) => {
             type: "bar",
             name: "N",
             barmode: "stack",
-            marker: {color: "#080"}
+            marker: {color: "#B0C4DE"}
         }];
 
     var barLayout = {

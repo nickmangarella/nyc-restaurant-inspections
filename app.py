@@ -58,18 +58,19 @@ def leaflet():
     session = Session(engine)
 
     # Query lats and longs
-    nycLat = session.query(nyc.dba, nyc.boro, nyc.score, nyc.address, nyc.latitude, nyc.longitude).\
+    nycLat = session.query(nyc.dba, nyc.boro, nyc.score, nyc.violation_code, nyc.address, nyc.latitude, nyc.longitude).\
     distinct().filter(nyc.latitude != 0.0).all()
 
     session.close()
     
     all_latslongs = []
     
-    for dba, boro, score, add, lat, lng in nycLat:
+    for dba, boro, score, v_code, add, lat, lng in nycLat:
         nycLat_dict = {}
         nycLat_dict["Name"] = dba
         nycLat_dict["Boro"] = boro
         nycLat_dict["Score"] = score
+        nycLat_dict["Violation_Code"] = v_code
         nycLat_dict["Address"] = add
         nycLat_dict["Lat"] = lat
         nycLat_dict["Long"] = lng
