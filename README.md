@@ -2,7 +2,7 @@
 
 
 
-![NYC Restaurants](images/Restaurant Inspections NYC.png)
+![NYC Restaurants](images/RestaurantInspectionsNYC.png)
 
 #### Project Team:
 
