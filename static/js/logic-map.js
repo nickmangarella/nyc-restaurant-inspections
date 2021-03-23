@@ -45,22 +45,8 @@ fetch("http://127.0.0.1:5000/leaflet").then(response => response.json()).then((d
 }).catch(err => console.error(err));
 
 // Add rat and roach cirlces to new layer groups
-var ratsLayer = L.layerGroup(ratCircles);
-var roachesLayer = L.layerGroup(roachCircles);
-
-// Add the tile layer
-var darkLayer = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
-  attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
-  tileSize: 512,
-  maxZoom: 18,
-  zoomOffset: -1,
-  id: "mapbox/dark-v9",
-  accessToken: API_KEY
-});
-
-var baseLayers = {
-  Dark: darkLayer
-};
+var ratsLayer = new L.layerGroup(ratCircles);
+var roachesLayer = new L.layerGroup(roachCircles);
 
 // Overlays that may be toggled on or off
 var overlayLayers = {
@@ -70,10 +56,20 @@ var overlayLayers = {
 
 // Create map
 var myMap = L.map("rrMap", {
-  center: [40.7128, -74.0060],
+  center: [40.7397, -73.9763],
   zoom: 12,
-  layers: [darkLayer, ratsLayer, roachesLayer]
+  layers: [ratsLayer, roachesLayer]
 });
 
+// Add the tile layer
+var darkLayer = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+  attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
+  tileSize: 512,
+  maxZoom: 18,
+  zoomOffset: -1,
+  id: "mapbox/dark-v9",
+  accessToken: API_KEY
+}).addTo(myMap);
+
 // Pass layers into layer control
-L.control.layers(baseLayers, overlayLayers).addTo(myMap);
+L.control.layers(null, overlayLayers).addTo(myMap);
