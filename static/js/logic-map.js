@@ -27,7 +27,7 @@ fetch("http://127.0.0.1:5000/leaflet").then(response => response.json()).then((d
       }).bindPopup("<h4>" + rats[i].Name + "</h4> <hr> <p>" + rats[i].Address + "</p> <p>" + rats[i].Violation_Desc + "</p>")
     );
   }
-
+  
   // For loop to go through restaurants with roaches
   for (var i = 0; i < roaches.length; i++) {
 
@@ -42,7 +42,8 @@ fetch("http://127.0.0.1:5000/leaflet").then(response => response.json()).then((d
       }).bindPopup("<h4>" + roaches[i].Name + "</h4> <hr> <p>" + roaches[i].Address + "</p> <p>" + roaches[i].Violation_Desc + "</p>")
     );
   }
-}).catch(err => console.error(err));
+console.log(ratCircles);
+console.log(roachCircles);
 
 // Add rat and roach cirlces to new layer groups
 var ratsLayer = new L.layerGroup(ratCircles);
@@ -73,3 +74,4 @@ var darkLayer = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}
 
 // Pass layers into layer control
 L.control.layers(null, overlayLayers).addTo(myMap);
+}).catch(err => console.error(err));
