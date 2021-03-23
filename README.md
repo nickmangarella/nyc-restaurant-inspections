@@ -30,7 +30,7 @@ In this project we explored restaurant inspection data that was from a dataset w
 
 #### 
 
-#### Summary of the APIs / Tools that we used for this project:
+#### Summary of the Tools that we used for this project:
 
 - Kaggle
 - SQLite / SQLAlchemy
