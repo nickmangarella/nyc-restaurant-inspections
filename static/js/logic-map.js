@@ -1,8 +1,8 @@
 // Create map
-var myMap = L.map("boroMap", {
+var myMap = L.map("rrMap", {
   center: [40.7128, -74.0060],
   zoom: 12,
-  layers: [Rats, Roaches]
+  layers: [ratsLayer, roachesLayer]
 });
 
 // Add the tile layer
@@ -15,41 +15,49 @@ L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
   accessToken: API_KEY
 }).addTo(myMap)
 
-// Connect to database route
+// Overlays that may be toggled on or off
+var overlayLayers = {
+  Rats: ratsLayer,
+  Roaches: roachesLayer
+};
+
+// Pass layers into layer control
+L.control.layers(overlayLayers).addTo(myMap);
+
+// Fetch the data with the flask route
 fetch("http://127.0.0.1:5000/leaflet").then(response => response.json()).then((data) => {
   
-  var rat = data.filter(x => x.Violation_Code === "04K");
-  var roach = data.filter(x => x.Violation_Code === "04M");
+  // Filter restaurants by rat and roach violation codes
+  var rats = data.filter(x => x.Violation_Code === "04K");
+  var roaches = data.filter(x => x.Violation_Code === "04M");
 
   console.log(rat);
   console.log(roach);
     
 
-  // For loop to cycle through Manhattan restaurants
-  for (var i = 0; i < rat.length; i++) {
+  // For loop to go through restaurants with rats
+  for (var i = 0; i < rats.length; i++) {
 
-    // Render the restaurants as markers and call markerColor()
-    var Rats = L.circle([rat[i].Lat, rat[i].Long], {
+    // Render the restaurants as circles
+    var ratsLayer = L.layerGroup(L.circle([rats[i].Lat, rats[i].Long], {
       color: "white",
       fillColor: "#FF00FF",
       fillOpacity: 1,
       radius: 50,
       weight: 1
-    })
-    .bindPopup("<h4>" + rat[i].Name + "</h4> <hr> <p>" + rat[i].Address + "</p> <p>" + rat[i]. + "</p>").addTo(myMap);
+    })).bindPopup("<h4>" + rats[i].Name + "</h4> <hr> <p>" + rats[i].Address + "</p> <p>" + rats[i].Violation_Desc + "</p>").addTo(myMap);
   }
 
-  // For loop to cycle through Staten Island restaurants
-  for (var i = 0; i < roach.length; i++) {
+  // For loop to go through restaurants with roaches
+  for (var i = 0; i < roaches.length; i++) {
 
-    // Render the restaurants as markers and call markerColor()
-    var Roaches = L.circle([roach[i].Lat, roach[i].Long], {
+    // Render the restaurants as circles
+    var roachesLayer = L.layerGroup(L.circle([roaches[i].Lat, roaches[i].Long], {
       color: "white",
       fillColor: "#7FFFD4",
       fillOpacity: 1,
       radius: 50,
       weight: 1
-    })
-    .bindPopup("<h4>" + roach[i].Name + "</h4> <hr> <p>" + roach[i].Address + "</p> <br> <p>" + roach[i]. + "</p>").addTo(myMap);
+    })).bindPopup("<h4>" + roaches[i].Name + "</h4> <hr> <p>" + roaches[i].Address + "</p> <p>" + roaches[i].Violation_Desc + "</p>").addTo(myMap);
   }
 }).catch(err => console.error(err));
